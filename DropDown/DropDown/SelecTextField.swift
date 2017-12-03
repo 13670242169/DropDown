@@ -9,15 +9,20 @@
 import UIKit
 
 class SelecTextField: UIView {
-    var ShowDataArr : [Any]?
-    var textField:UITextField?
-    var MenuRect:CGRect?
-    var btn:UIButton?
-    var tempBtn:UIButton?
-    var me = Menu()
-    var textFieldHeight:CGFloat = 30
-    var listViewHeight:CGFloat = 120
+    /*----------------------外部访问--------------------------*/
     var text:String?
+    
+    
+    /*------------------私有属性,外部无权访问--------------------*/
+    fileprivate var ShowDataArr : [Any]?
+    fileprivate var textField:UITextField?
+    fileprivate var MenuRect:CGRect?
+    fileprivate var btn:UIButton?
+    fileprivate var tempBtn:UIButton?
+    fileprivate var me = Menu()
+    fileprivate var textFieldHeight:CGFloat = 30
+    fileprivate var listViewHeight:CGFloat = 120
+    
     class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150) ->SelecTextField {
         let tf = SelecTextField(frame: rect)
         tf.height = listViewHeight + tf.textFieldHeight
@@ -27,7 +32,7 @@ class SelecTextField: UIView {
         
         return tf
     }
-    override init(frame: CGRect) {
+    fileprivate override init(frame: CGRect) {
         super.init(frame: frame)
         self.height = textFieldHeight + listViewHeight
         let tfrect =  CGRect(x: 0, y: 0, width: frame.width, height: textFieldHeight)
@@ -47,7 +52,7 @@ class SelecTextField: UIView {
         tempBtn?.isSelected = false
         addSubview(textField!)
     }
-    @objc func btnclick(btn:UIButton){
+    @objc fileprivate func btnclick(btn:UIButton){
         me.packUpMenu()
         if btn.isSelected == true {
             btn.isSelected = false
@@ -56,7 +61,7 @@ class SelecTextField: UIView {
             textFieldclick(textField: self.textField!)
         }
     }
-    @objc func textFieldclick(textField:UITextField){
+    @objc fileprivate func textFieldclick(textField:UITextField){
         me.packUpMenu()
         btn?.isSelected = true
         guard
