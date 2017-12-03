@@ -14,7 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let rect = CGRect(x: 0, y: 100, width: 100, height: 30)
         let arr = ["0","1","2","3","4","5"]
-        let tf = SelecTextField.textFieldSelectValues(rect: rect, arr: arr)
+        let tf = SelecTextField.textFieldSelectValues(rect: rect, arr: arr,placeHolder:"测试")
+    
         self.view.addSubview(tf)
     }
 

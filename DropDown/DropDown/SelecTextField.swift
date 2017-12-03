@@ -10,7 +10,13 @@ import UIKit
 
 class SelecTextField: UIView {
     /*----------------------外部访问--------------------------*/
+    /// textField里面的文本内容
     var text:String?
+    /// 设置下拉选项提示按钮位置
+    
+    /// 设置textField的样式
+    
+    /// 设置textField的占位文字
     
     
     /*------------------私有属性,外部无权访问--------------------*/
@@ -23,13 +29,13 @@ class SelecTextField: UIView {
     fileprivate var textFieldHeight:CGFloat = 30
     fileprivate var listViewHeight:CGFloat = 120
     
-    class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150) ->SelecTextField {
+    class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150,placeHolder:String?) ->SelecTextField {
         let tf = SelecTextField(frame: rect)
         tf.height = listViewHeight + tf.textFieldHeight
         tf.listViewHeight = listViewHeight
         tf.ShowDataArr = arr
         tf.MenuRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: tf.listViewHeight)
-        
+        tf.textField?.placeholder = placeHolder
         return tf
     }
     fileprivate override init(frame: CGRect) {
