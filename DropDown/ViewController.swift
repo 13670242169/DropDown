@@ -12,7 +12,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let rect = CGRect(x: 0, y: 100, width: 100, height: 120)
+        let arr = ["0","1","2","3","4","5"]
+        let tf = SelecTextField.textFieldSelectValues(rect: rect, arr: arr)
+        self.view.addSubview(tf)
+        
     }
 
     @IBAction func show(_ sender: UIButton) {

@@ -16,6 +16,7 @@
 		188FB45D1FD14CC800EABDD9 /* DropDownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FB45C1FD14CC800EABDD9 /* DropDownUITests.swift */; };
 		188FB46B1FD14CD400EABDD9 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FB46A1FD14CD300EABDD9 /* Menu.swift */; };
 		188FB46F1FD15F9400EABDD9 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FB46E1FD15F9400EABDD9 /* UIView+Ext.swift */; };
+		914CA91E1FD3C02A00046DFF /* SelecTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914CA91D1FD3C02A00046DFF /* SelecTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		188FB45E1FD14CC800EABDD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188FB46A1FD14CD300EABDD9 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		188FB46E1FD15F9400EABDD9 /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		914CA91D1FD3C02A00046DFF /* SelecTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelecTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			children = (
 				188FB46A1FD14CD300EABDD9 /* Menu.swift */,
 				188FB46E1FD15F9400EABDD9 /* UIView+Ext.swift */,
+				914CA91D1FD3C02A00046DFF /* SelecTextField.swift */,
 			);
 			path = DropDown;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				188FB46F1FD15F9400EABDD9 /* UIView+Ext.swift in Sources */,
+				914CA91E1FD3C02A00046DFF /* SelecTextField.swift in Sources */,
 				188FB46B1FD14CD400EABDD9 /* Menu.swift in Sources */,
 				188FB43F1FD14CC800EABDD9 /* ViewController.swift in Sources */,
 				188FB43D1FD14CC800EABDD9 /* AppDelegate.swift in Sources */,
