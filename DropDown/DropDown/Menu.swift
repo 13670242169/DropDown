@@ -8,16 +8,26 @@
 
 import UIKit
 class Menu: UIView{
-    var ShowTableView: UITableView?
+    lazy var ShowTableView: UITableView = {
+        let tableview = UITableView.init(frame: CGRect(x:0,y:0,width:0,height:0), style: .plain)
+        tableview.tableFooterView = UIView.init()
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.layer.cornerRadius = 8
+        tableview.bounces = false
+        tableview.isHidden = true
+        return tableview
+    }()
     var ShowDataArr : [Any]?
     let cellIdentifier = "cellID"
 
     var didSelectIndex:((_ index:Int)->Void)?
 
     var ShowTableSize : CGSize?
-    class func initMenu(rect:CGRect,showArr:[Any],didSelect:((_ index:Int)->Void)?)->Menu{
+    class func initMenu(rect:CGRect,showArr:[Any],didSelect:((_ index:Int)->())?)->Menu{
         let frame = rect
-        let me = Menu.init(frame:frame)
+
+        let me = Menu(frame:frame)
         me.ShowTableSize = me.frame.size
         let point = CGPoint(x:frame.origin.x,y: frame.origin.y)
         me.popupMenu(orginPoint:point, arr: showArr)
@@ -25,40 +35,37 @@ class Menu: UIView{
             didSelect!(index)
         }
         return me
+       
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 8
         self.backgroundColor = UIColor.white
-        ShowTableView = UITableView.init(frame: CGRect(x:0,y:0,width:frame.size.width,height:0), style: .plain)
-        ShowTableView?.tableFooterView = UIView.init()
-        ShowTableView?.delegate = self
-        ShowTableView?.dataSource = self
-        ShowTableView?.layer.cornerRadius = 8
-        ShowTableView?.bounces = false
-        addSubview(ShowTableView!)
-        ShowTableView?.isHidden = true
+        ShowTableView.width = frame.size.width
+        addSubview(ShowTableView)
+        
         isHidden = true
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func popupMenu(orginPoint:CGPoint,arr : Array<Any>){
+    func popupMenu(orginPoint:CGPoint,arr : [Any]){
         self.isHidden = false
-        ShowTableView?.isHidden = false
+        ShowTableView.isHidden = false
         self.frame.origin = orginPoint
         self.ShowDataArr = arr
-        self.ShowTableView?.reloadData()
+        
         self.superview?.bringSubview(toFront: self)
         self.frame.size.height = (self.ShowTableSize!.height)
-        self.ShowTableView?.frame.size.height = (self.ShowTableSize!.height)
+        print(self.ShowTableSize!.height)
+        self.ShowTableView.frame.size.height = (self.ShowTableSize!.height)
+        print(self.ShowTableView.frame.size.height)
+        self.ShowTableView.reloadData()
     }
     func packUpMenu() {
-        self.ShowTableView?.frame.size.height = 0.0
-        self.frame.size.height = 0.0
-        self.isHidden = true
-        self.ShowTableView?.isHidden = true
+        self.removeFromSuperview()
+        
     }
 }
 extension Menu:UITableViewDelegate,UITableViewDataSource  {
@@ -66,6 +73,7 @@ extension Menu:UITableViewDelegate,UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if ((ShowDataArr?.count) != nil) {
             return (ShowDataArr?.count)!
+            
         }
         return 1
     }

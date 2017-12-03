@@ -11,33 +11,71 @@ import UIKit
 class SelecTextField: UIView {
     var ShowDataArr : [Any]?
     var textField:UITextField?
-    var tfRect:CGRect?
-    class func textFieldSelectValues(rect:CGRect,arr:[Any]) ->SelecTextField {
-        let rect = rect
+    var MenuRect:CGRect?
+    var btn:UIButton?
+    var tempBtn:UIButton?
+    var me = Menu()
+    var textFieldHeight:CGFloat = 30
+    var listViewHeight:CGFloat = 120
+    var text:String?
+    class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150) ->SelecTextField {
         let tf = SelecTextField(frame: rect)
+        tf.height = listViewHeight + tf.textFieldHeight
+        tf.listViewHeight = listViewHeight
         tf.ShowDataArr = arr
-        tf.tfRect = rect
+        tf.MenuRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: tf.listViewHeight)
+        
         return tf
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.red
-        let tfrect =  CGRect(x: 0, y: 0, width: frame.width, height: 30)
+        self.height = textFieldHeight + listViewHeight
+        let tfrect =  CGRect(x: 0, y: 0, width: frame.width, height: textFieldHeight)
         textField = UITextField(frame: tfrect)
         textField?.layer.borderWidth = 1
+        btn = UIButton(type: .custom)
+        btn?.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        btn?.setImage(UIImage(named:"向上"), for: [])
+        btn?.setImage(UIImage(named:"xiangxia (1)"), for: .selected)
+        btn?.addTarget(self, action: #selector(btnclick), for: .touchUpInside)
+        textField?.rightView = btn
+        textField?.rightViewMode = .always
         textField?.layer.borderColor = UIColor.black.cgColor
-        textField?.addTarget(self, action: #selector(click(textField:)), for: .editingDidBegin)
+        textField?.addTarget(self, action: #selector(textFieldclick), for: .editingDidBegin)
         textField?.borderStyle = .roundedRect
+        tempBtn = btn
+        tempBtn?.isSelected = false
         addSubview(textField!)
     }
-    @objc func click(textField:UITextField){
-        let h = (self.tfRect?.height)! - textField.height
-        let rect = CGRect(x: textField.x, y: textField.y + textField.height, width: textField.width, height: h)
-        let me = Menu.initMenu(rect: rect,showArr:ShowDataArr!) { (index) in
+    @objc func btnclick(btn:UIButton){
+        me.packUpMenu()
+        if btn.isSelected == true {
+            btn.isSelected = false
+        }else{
+            btn.isSelected = true
+            textFieldclick(textField: self.textField!)
+        }
+    }
+    @objc func textFieldclick(textField:UITextField){
+        me.packUpMenu()
+        btn?.isSelected = true
+        guard
+        let x = self.textField?.frame.minX,
+        let y = self.textField?.frame.maxY,
+        let w = self.textField?.frame.width,
+        let h = MenuRect?.height
+             else{
+                return
+        }
+        let rect = CGRect(x: x, y:y, width: w ,height: h)
+        me = Menu.initMenu(rect: rect,showArr:ShowDataArr!) {[unowned self] (index) in
             print(index)
             textField.resignFirstResponder()
-            
+            self.btn?.isSelected = false
+            textField.text = self.ShowDataArr?[index] as? String
+            self.text = textField.text
         }
+        
         self.addSubview(me)
     }
     required init?(coder aDecoder: NSCoder) {

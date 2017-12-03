@@ -12,11 +12,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rect = CGRect(x: 0, y: 100, width: 100, height: 120)
+        let rect = CGRect(x: 0, y: 100, width: 100, height: 30)
         let arr = ["0","1","2","3","4","5"]
         let tf = SelecTextField.textFieldSelectValues(rect: rect, arr: arr)
         self.view.addSubview(tf)
-        
     }
 
     @IBAction func show(_ sender: UIButton) {
@@ -24,7 +23,7 @@ class ViewController: UIViewController {
         let rect = CGRect(x: sender.x, y: sender.y + sender.height, width: sender.width, height: 100)
         let me = Menu.initMenu(rect: rect,showArr:arr) { (index) in
             print(index)
-            sender.titleLabel?.text = "\(index)"
+            sender.setTitle("\(index)", for: [])
         }
         self.view.addSubview(me)
     }
