@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     @IBAction func show(_ sender: UIButton) {
         let arr = ["0","1","2","3","4","5"]
         let rect = CGRect(x: sender.x, y: sender.y + sender.height, width: sender.width, height: 100)
-        let me = Menu.initMenu(rect: rect,showArr:arr) { (index) in
+        let me = MenuList.initMenuList(rect: rect,showArr:arr) { (index) in
             print(index)
             sender.setTitle("\(index)", for: [])
         }

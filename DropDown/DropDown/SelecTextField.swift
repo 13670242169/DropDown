@@ -25,7 +25,7 @@ class SelecTextField: UIView {
     fileprivate var MenuRect:CGRect?
     fileprivate var btn:UIButton?
     fileprivate var tempBtn:UIButton?
-    fileprivate var me = Menu()
+    fileprivate var me = MenuList()
     fileprivate var textFieldHeight:CGFloat = 30
     fileprivate var listViewHeight:CGFloat = 120
     
@@ -82,7 +82,7 @@ class SelecTextField: UIView {
                 return
         }
         let rect = CGRect(x: x, y:y, width: w ,height: h)
-        me = Menu.initMenu(rect: rect,showArr:ShowDataArr!) {[unowned self] (index) in
+        me = MenuList.initMenuList(rect: rect,showArr:ShowDataArr!) {[unowned self] (index) in
             print(index)
             textField.resignFirstResponder()
             self.btn?.isSelected = false
