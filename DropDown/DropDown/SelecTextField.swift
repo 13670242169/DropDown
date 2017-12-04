@@ -28,14 +28,18 @@ class SelecTextField: UIView {
     fileprivate var me = MenuList()
     fileprivate var textFieldHeight:CGFloat = 30
     fileprivate var listViewHeight:CGFloat = 120
+    var selectIndex:((_ index:Int)->())?
     
-    class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150,placeHolder:String?) ->SelecTextField {
+    class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150,placeHolder:String?,selectIndex:((_ index:Int)->())?) ->SelecTextField {
         let tf = SelecTextField(frame: rect)
         tf.height = tf.textFieldHeight
         tf.listViewHeight = listViewHeight
         tf.ShowDataArr = arr
         tf.MenuRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: tf.listViewHeight)
         tf.textField?.placeholder = placeHolder
+        tf.selectIndex = {(index:Int) in
+            selectIndex!(index)
+        }
         return tf
     }
     fileprivate override init(frame: CGRect) {
@@ -90,6 +94,7 @@ class SelecTextField: UIView {
             self.text = textField.text
             self.textField?.isEnabled = true
             self.height = self.textFieldHeight
+            self.selectIndex!(index)
         }
         self.addSubview(me)
     }
