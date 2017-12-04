@@ -31,7 +31,7 @@ class SelecTextField: UIView {
     
     class func textFieldSelectValues(rect:CGRect,arr:[Any],listViewHeight:CGFloat = 150,placeHolder:String?) ->SelecTextField {
         let tf = SelecTextField(frame: rect)
-        tf.height = listViewHeight + tf.textFieldHeight
+        tf.height = tf.textFieldHeight
         tf.listViewHeight = listViewHeight
         tf.ShowDataArr = arr
         tf.MenuRect = CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: tf.listViewHeight)
@@ -40,7 +40,7 @@ class SelecTextField: UIView {
     }
     fileprivate override init(frame: CGRect) {
         super.init(frame: frame)
-        self.height = textFieldHeight + listViewHeight
+
         let tfrect =  CGRect(x: 0, y: 0, width: frame.width, height: textFieldHeight)
         textField = UITextField(frame: tfrect)
         textField?.layer.borderWidth = 1
@@ -54,11 +54,13 @@ class SelecTextField: UIView {
         textField?.layer.borderColor = UIColor.black.cgColor
         textField?.addTarget(self, action: #selector(textFieldclick), for: .editingDidBegin)
         textField?.borderStyle = .roundedRect
+        textField?.delegate = self
         tempBtn = btn
         tempBtn?.isSelected = false
         addSubview(textField!)
     }
     @objc fileprivate func btnclick(btn:UIButton){
+        self.height = textFieldHeight  + listViewHeight
         me.packUpMenu()
         if btn.isSelected == true {
             btn.isSelected = false
@@ -68,6 +70,7 @@ class SelecTextField: UIView {
         }
     }
     @objc fileprivate func textFieldclick(textField:UITextField){
+        self.height = textFieldHeight  + listViewHeight
         me.packUpMenu()
         btn?.isSelected = true
         guard
@@ -85,12 +88,17 @@ class SelecTextField: UIView {
             self.btn?.isSelected = false
             textField.text = self.ShowDataArr?[index] as? String
             self.text = textField.text
+            self.textField?.isEnabled = true
+            self.height = self.textFieldHeight
         }
-        
         self.addSubview(me)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+extension SelecTextField:UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.textField?.isEnabled = false
+    }
 }
